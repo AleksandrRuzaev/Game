@@ -7,3 +7,5 @@ export { Tree } from './obstacles/tree.js';
 export { Stone } from './obstacles/stone';
 export { Apple } from './bonuses/apple';
 export { Cherry } from './bonuses/cherry';
+export { Bear } from './monsters/bear';
+export { Wolf } from './monsters/wolf';
