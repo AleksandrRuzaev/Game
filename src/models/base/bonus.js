@@ -1,4 +1,4 @@
-import { MapObject } from '.';
+import { MapObject } from '..';
 
 function Bonus(x, y, pointsValue) {
     if (!new.target) {

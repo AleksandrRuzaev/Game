@@ -1,8 +1,8 @@
-export { MapObject } from './map-object';
-export { Obstacle } from './obstacle';
-export { Position } from './position';
-export { Bonus } from './bonus';
-export { MovableObject } from './movable-object';
+export { MapObject } from './base/map-object';
+export { Obstacle } from './base/obstacle';
+export { Position } from './base/position';
+export { Bonus } from './base/bonus';
+export { MovableObject } from './base/movable-object';
 export { Tree } from './obstacles/tree.js';
 export { Stone } from './obstacles/stone';
 export { Apple } from './bonuses/apple';

@@ -1,4 +1,4 @@
-import { MapObject } from '.';
+import { MapObject } from '..';
 
 function MovableObject(x, y, health, damage, speed) {
     if (!new.target) {
