@@ -5,3 +5,5 @@ export { Bonus } from './bonus';
 export { MovableObject } from './movable-object';
 export { Tree } from './obstacles/tree.js';
 export { Stone } from './obstacles/stone';
+export { Apple } from './bonuses/apple';
+export { Cherry } from './bonuses/cherry';

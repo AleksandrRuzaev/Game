@@ -1,11 +1,11 @@
-import { MapObject } from '..';
+import { Obstacle } from '..';
 
 function Stone(x, y) {
     if (!new.target) {
         return new Stone(x, y);
     }
 
-    MapObject.call(this, x, y);
+    Obstacle.call(this, x, y);
 }
 
 export { Stone };
