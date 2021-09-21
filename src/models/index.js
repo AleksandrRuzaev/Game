@@ -9,3 +9,4 @@ export { Apple } from './bonuses/apple';
 export { Cherry } from './bonuses/cherry';
 export { Bear } from './monsters/bear';
 export { Wolf } from './monsters/wolf';
+export { Player } from './player';
