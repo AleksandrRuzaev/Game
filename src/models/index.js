@@ -10,3 +10,5 @@ export { Cherry } from './bonuses/cherry';
 export { Bear } from './monsters/bear';
 export { Wolf } from './monsters/wolf';
 export { Player } from './player';
+export { Map } from './map';
+export { Game } from './game';

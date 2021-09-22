@@ -29,3 +29,5 @@ function Map(player, monsters, bonuses, obstacles) {
         throw Error('exportData not implemented');
     };
 }
+
+export { Map };
