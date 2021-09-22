@@ -1,6 +1,6 @@
 function Position(x, y) {
     if (!new.target) {
-        new Position(x, y);
+        return new Position(x, y);
     }
 
     this.x = x;
