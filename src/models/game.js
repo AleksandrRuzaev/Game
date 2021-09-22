@@ -10,6 +10,7 @@ function Game(difficult = 'medium') {
     this.generateMap = function () {
         // new Player();
         // for => new Monster, Bonus, Obstacle()
+        // return new Map()
         throw Error('generateMap not implemented');
     };
 }
