@@ -10,4 +10,9 @@ function Player(x, y, health, damage, speed) {
     this._points = 0;
 }
 
+const Proto = function () {};
+Proto.prototype = MovableObject.prototype;
+Player.prototype = new Proto();
+Player.prototype.constructor = Player;
+
 export { Player };
