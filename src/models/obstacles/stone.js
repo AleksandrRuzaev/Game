@@ -8,4 +8,9 @@ function Stone(x, y) {
     Obstacle.call(this, x, y);
 }
 
+const Proto = function () {};
+Proto.prototype = Obstacle.prototype;
+Stone.prototype = new Proto();
+Stone.prototype.constructor = Stone;
+
 export { Stone };

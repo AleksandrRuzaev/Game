@@ -8,4 +8,9 @@ function Tree(x, y) {
     Obstacle.call(this, x, y);
 }
 
+const Proto = function () {};
+Proto.prototype = Obstacle.prototype;
+Tree.prototype = new Proto();
+Tree.prototype.constructor = Tree;
+
 export { Tree };
