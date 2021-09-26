@@ -1,4 +1,4 @@
-import { Obstacle } from '..';
+import { Obstacle } from '../..';
 
 function Stone(x, y) {
     if (!new.target) {
