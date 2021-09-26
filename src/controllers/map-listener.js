@@ -8,6 +8,10 @@ function MapListener(map) {
             this.map.doMove();
         }, 1000);
     };
+
+    this.endGame = function () {
+        clearInterval(this._intervalId);
+    };
 }
 
 export { MapListener };

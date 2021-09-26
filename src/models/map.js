@@ -4,7 +4,7 @@ function Map(player, monsters, bonuses, obstacles) {
     }
 
     this._player = player;
-    this._mapObjects = [...monsters, ...bonuses, ...obstacles];
+    this._mapObjects = [player, ...monsters, ...bonuses, ...obstacles];
 
     this.getMonsters = function () {
         throw Error('getMonsters not implemented');
@@ -27,6 +27,10 @@ function Map(player, monsters, bonuses, obstacles) {
 
     this.exportData = function () {
         throw Error('exportData not implemented');
+    };
+
+    this.importData = function () {
+        throw Error('importData not implemented');
     };
 }
 
