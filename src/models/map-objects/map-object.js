@@ -1,6 +1,6 @@
 function MapObject(x, y, health, damage) {
     if (!new.target) {
-        return new MapObject(position, health, damage);
+        return new MapObject(x, y, health, damage);
     }
 
     this.position = { x, y };
