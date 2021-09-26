@@ -1,4 +1,4 @@
-import { MapObject } from '../..';
+import { MapObject } from '../map-object';
 
 function Obstacle(x, y, health, damage) {
     if (!new.target) {

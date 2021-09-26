@@ -1,4 +1,4 @@
-import { MovableObject } from '../..';
+import { MovableObject } from '../movable-object';
 
 function Wolf(x, y, health, damage, speed) {
     if (!new.target) {

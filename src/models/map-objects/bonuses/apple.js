@@ -1,4 +1,4 @@
-import { Bonus } from '..';
+import { Bonus } from './bonus';
 
 function Apple(x, y, points) {
     if (!new.target) {

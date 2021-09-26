@@ -1,4 +1,4 @@
-import { Bonus } from '..';
+import { Bonus } from './bonus';
 
 function Cherry(x, y, points) {
     if (!new.target) {

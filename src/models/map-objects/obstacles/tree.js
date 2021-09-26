@@ -1,4 +1,4 @@
-import { Obstacle } from '..';
+import { Obstacle } from './obstacle';
 
 function Tree(x, y) {
     if (!new.target) {
