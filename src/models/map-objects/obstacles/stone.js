@@ -1,4 +1,4 @@
-import { Obstacle } from '../map-object';
+import { Obstacle } from './obstacle';
 
 function Stone(x, y) {
     if (!new.target) {
