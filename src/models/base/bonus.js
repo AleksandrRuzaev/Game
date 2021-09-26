@@ -10,6 +10,11 @@ function Bonus(x, y, pointsValue) {
     this._pointsValue = pointsValue;
 }
 
+const Proto = function () {};
+Proto.prototype = MapObject.prototype;
+Bonus.prototype = new Proto();
+Bonus.prototype.constructor = Bonus;
+
 Bonus.prototype.apply = function () {
     throw Error('Bonus not implemented');
 };
