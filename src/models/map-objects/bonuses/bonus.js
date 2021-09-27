@@ -1,10 +1,6 @@
 import { MapObject } from '../map-object';
 
 function Bonus(x, y, pointsValue) {
-    if (!new.target) {
-        return new Bonus(x, y, pointsValue);
-    }
-
     MapObject.call(this, x, y);
 
     this._pointsValue = pointsValue;

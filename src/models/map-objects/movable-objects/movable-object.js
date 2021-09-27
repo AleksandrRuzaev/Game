@@ -1,10 +1,6 @@
 import { MapObject } from '../map-object';
 
 function MovableObject(x, y, health, damage, speed) {
-    if (!new.target) {
-        return new MovableObject(x, y, health, damage, speed);
-    }
-
     MapObject.call(this, x, y, health, damage);
 
     this.speed = speed;
