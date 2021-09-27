@@ -3,6 +3,38 @@ import { Bear } from '../models/map-objects/movable-objects/monsters/bear';
 import { Player } from '../models/map-objects/movable-objects/player';
 import { Tree } from '../models/map-objects/obstacles/tree';
 
+// 1
+const Wolf = jest.fn();
+const mMock = jest.fn();
+
+Wolf.mockImplementation(() => {
+    return {
+        m: mMock,
+    };
+});
+
+const mock = new Wolf();
+
+// 2
+jest.mock('../models/map-objects/movable-objects/monsters/wolf', () => ({
+    /*here set properties: x: 0, y: 1 ... */
+}));
+
+// 3
+jest.mock('../models/map-objects/movable-objects/monsters/wolf'); // Wolf is now a mock constructor
+Wolf.mockImplementation(() => {
+    return {
+        /*here set properties: x: 0, y: 1 ... */
+    };
+});
+
+const some = new Wolf();
+
+beforeEach(() => {
+    // Clear all instances and calls to constructor and all methods:
+    Wolf.mockClear();
+});
+
 const wolf = new Wolf(0, 0, 10, 2, 2);
 const bear = new Bear(2, 0, 10, 5, 1);
 const tree = new Tree(2, 0);
