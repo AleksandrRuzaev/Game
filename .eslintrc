@@ -1,0 +1,14 @@
+{
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2015
+    },
+    "env": {
+        "jest": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "semi": ["error", "always"],
+        "quotes": ["error", "single"]
+    }
+}
