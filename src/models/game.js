@@ -6,13 +6,13 @@ function Game(difficult = 'medium') {
     }
 
     this.settings = config.difficult[difficult];
-
-    this.generateMap = function () {
-        // new Player();
-        // for => new Monster, Bonus, Obstacle()
-        // return new Map()
-        throw Error('generateMap not implemented');
-    };
 }
+
+Game.prototype.generateMap = function () {
+    // new Player();
+    // for => new Monster, Bonus, Obstacle()
+    // return new Map()
+    throw Error('generateMap not implemented');
+};
 
 export { Game };
