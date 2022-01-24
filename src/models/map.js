@@ -32,5 +32,8 @@ Map.prototype.importData = function () {
 Map.prototype.getByPosition = function (position) {
     throw Error('getByPosition not implemented');
 };
+Map.prototype.canMove = function (position) {
+    throw Error('canMove not implemented');
+};
 
 export { Map };

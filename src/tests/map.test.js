@@ -36,7 +36,7 @@ Player.mockImplementation(() => {
 describe('Map functionality', () => {
     const wolf = new Wolf();
     const bear = new Bear();
-    const tree = new Tree(2, 0);
+    const tree = new Tree(1, 0);
     const stone = new Stone(2, 0);
     const apple = new Apple(2, 1, 2);
     const cherry = new Cherry(2, 2, 3);
@@ -62,6 +62,16 @@ describe('Map functionality', () => {
 
     test('get bonuses', () => {
         expect(map.getBonuses().length).toEqual(2);
+    });
+
+    test('get by position', () => {
+        expect(map.getByPosition({ x: 1, y: 0 }).length).toEqual(1);
+        expect(map.getByPosition({ x: 0, y: 0 }).length).toEqual(0);
+    });
+
+    test('can move', () => {
+        expect(map.canMove({ x: 1, y: 0 })).toBeTruthy();
+        expect(map.canMove({ x: 3, y: 0 })).toBeFalsy();
     });
 
     test('move', () => {
