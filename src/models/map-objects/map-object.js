@@ -7,4 +7,8 @@ function MapObject(x, y, health, damage) {
     this.wasRemoved = false;
 }
 
+MapObject.prototype.interact = function (object) {
+    throw Error('MapObject interact not implemented');
+};
+
 export { MapObject };

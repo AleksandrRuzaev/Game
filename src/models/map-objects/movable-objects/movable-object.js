@@ -11,13 +11,9 @@ Proto.prototype = MapObject.prototype;
 MovableObject.prototype = new Proto();
 MovableObject.prototype.constructor = MovableObject;
 
-MovableObject.prototype.move = function () {
+MovableObject.prototype.move = function (direction) {
+    // via switch
     throw Error('MovableObject move not implemented');
-};
-
-// or move this into MapObject
-MovableObject.prototype.interact = function (mapObject) {
-    throw Error('MovableObject interact not implemented');
 };
 
 export { MovableObject };

@@ -8,6 +8,7 @@ export const config = {
             monsterCount: 15,
             bonusCount: 15,
             obstacleCount: 50,
+            monsterSpeed: 1200,
         },
         medium: {
             dimensions: {
@@ -17,6 +18,7 @@ export const config = {
             monsterCount: 50,
             bonusCount: 40,
             obstacleCount: 120,
+            monsterSpeed: 1000,
         },
         hard: {
             dimensions: {
@@ -26,6 +28,7 @@ export const config = {
             monsterCount: 65,
             bonusCount: 70,
             obstacleCount: 300,
+            monsterSpeed: 800,
         },
     },
 };

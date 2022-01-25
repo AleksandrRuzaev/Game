@@ -4,7 +4,7 @@ function Map(player, monsters, bonuses, obstacles) {
     }
 
     this._player = player;
-    this._mapObjects = [player, ...monsters, ...bonuses, ...obstacles];
+    this._mapObjects = [].push(player, monsters, bonuses, obstacles);
 }
 
 Map.prototype.getMonsters = function () {
@@ -16,11 +16,19 @@ Map.prototype.getObstacles = function () {
 Map.prototype.getBonuses = function () {
     throw Error('getBonuses not implemented');
 };
+Map.prototype.getByPosition = function (position) {
+    throw Error('getByPosition not implemented');
+};
+Map.prototype.canMove = function (position) {
+    throw Error('canMove not implemented');
+};
 Map.prototype.doMove = function () {
     // through this.getMonsters()
     throw Error('doMove not implemented');
 };
 Map.prototype.interact = function (firstObject, secondObject) {
+    // firstObject.interact
+    // secondObject.interact
     throw Error('interact not implemented');
 };
 Map.prototype.exportData = function () {
@@ -28,12 +36,6 @@ Map.prototype.exportData = function () {
 };
 Map.prototype.importData = function () {
     throw Error('importData not implemented');
-};
-Map.prototype.getByPosition = function (position) {
-    throw Error('getByPosition not implemented');
-};
-Map.prototype.canMove = function (position) {
-    throw Error('canMove not implemented');
 };
 
 export { Map };

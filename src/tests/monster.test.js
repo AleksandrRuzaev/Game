@@ -95,7 +95,6 @@ describe('move objects', () => {
             wolf.move(direction);
             expect(y).toBe(wolf.position.y);
             expect(x).toBe(x + wolf.speed);
-            expect(player.health).toBe(player.health - wolf.damage);
         });
 
         test('invalid monster move (collide with bonus)', () => {
@@ -104,7 +103,9 @@ describe('move objects', () => {
             wolf.move(direction);
             expect(y).toBe(wolf.position.y);
             expect(x).toBe(x + wolf.speed);
-            // reduce bonus count
+
+            // expect(player._points).toEqual(apple._pointsValue);
+            // expect(map.getBonuses().length).toEqual(1);
         });
     });
 });

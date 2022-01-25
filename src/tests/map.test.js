@@ -1,4 +1,11 @@
-import { Stone, Tree, Wolf, Bear, Player, Map, Apple, Cherry } from '../models/index';
+import { Apple } from '../models/map-objects/bonuses/apple';
+import { Cherry } from '../models/map-objects/bonuses/cherry';
+import { Wolf } from '../models/map-objects/movable-objects/monsters/wolf';
+import { Bear } from '../models/map-objects/movable-objects/monsters/bear';
+import { Player } from '../models/map-objects/movable-objects/player';
+import { Tree } from '../models/map-objects/obstacles/tree';
+import { Stone } from '../models/map-objects/obstacles/stone';
+import { Map } from '../models/map';
 
 jest.mock('../models/map-objects/movable-objects/monsters/wolf.js');
 Wolf.mockImplementation(() => {
@@ -33,22 +40,25 @@ Player.mockImplementation(() => {
     };
 });
 
+const player = new Player();
+const wolf = new Wolf();
+const bear = new Bear();
+const tree = new Tree(1, 0);
+const stone = new Stone(2, 0);
+const apple = new Apple(2, 1, 2);
+const cherry = new Cherry(2, 2, 3);
+
 describe('Map functionality', () => {
-    const wolf = new Wolf();
-    const bear = new Bear();
-    const tree = new Tree(1, 0);
-    const stone = new Stone(2, 0);
-    const apple = new Apple(2, 1, 2);
-    const cherry = new Cherry(2, 2, 3);
-    const player = new Player();
+    beforeEach(() => {
+        Wolf.mockClear();
+        Bear.mockClear();
+        Player.mockClear();
+    });
 
-    const wolfMove = jest.fn();
-    const bearMove = jest.fn();
-    const playerMove = jest.fn();
+    wolf.interact = jest.fn();
+    bear.interact = jest.fn();
 
-    wolf.move = wolfMove;
-    bear.move = bearMove;
-    player.move = playerMove;
+    cherry.interact = jest.fn();
 
     const map = new Map(player, [wolf, bear], [apple, cherry], [tree, stone]);
 
@@ -77,31 +87,90 @@ describe('Map functionality', () => {
     test('move', () => {
         map.doMove();
 
-        expect(wolfMove).toHaveBeenCalledTimes(1);
-        expect(bearMove).toHaveBeenCalledTimes(1);
-        expect(playerMove).toHaveBeenCalledTimes(1);
+        expect(wolf.move).toHaveBeenCalledTimes(1);
+        expect(bear.move).toHaveBeenCalledTimes(1);
+        expect(player.move).toHaveBeenCalledTimes(1);
     });
 
     describe('Objects interaction', () => {
         describe('Interact with bonus', () => {
             test('player interacts with apple', () => {
+                player.interact = jest.fn();
+                apple.interact = jest.fn();
+
                 map.interact(player, apple);
 
-                expect(player._points).toEqual(apple._pointsValue);
-                expect(map.getBonuses().length).toEqual(1);
+                expect(player.interact).toHaveBeenCalledTimes(1);
+                expect(apple.interact).toHaveBeenCalledTimes(1);
             });
 
             test('player interacts with cherry', () => {
+                player.interact = jest.fn();
+                cherry.interact = jest.fn();
+
                 map.interact(player, cherry);
 
-                expect(player._points).toEqual(cherry._pointsValue);
-                expect(map.getBonuses().length).toEqual(1);
+                expect(player.interact).toHaveBeenCalledTimes(1);
+                expect(cherry.interact).toHaveBeenCalledTimes(1);
+
+                // expect(player._points).toEqual(cherry._pointsValue);
+                // expect(map.getBonuses().length).toEqual(1);
             });
 
-            test('monster interacts with bonus', () => {
+            test('monster interacts with apple', () => {
+                wolf.interact = jest.fn();
+                apple.interact = jest.fn();
+
+                map.interact(wolf, apple);
+
+                expect(wolf.interact).toHaveBeenCalledTimes(1);
+                expect(apple.interact).toHaveBeenCalledTimes(1);
+
+                // expect(map.getBonuses().length).toEqual(1);
+            });
+
+            test('monster interacts with cherry', () => {
+                wolf.interact = jest.fn();
+                cherry.interact = jest.fn();
+
                 map.interact(wolf, cherry);
 
-                expect(map.getBonuses().length).toEqual(1);
+                expect(wolf.interact).toHaveBeenCalledTimes(1);
+                expect(cherry.interact).toHaveBeenCalledTimes(1);
+
+                // expect(map.getBonuses().length).toEqual(1);
+            });
+        });
+
+        describe('Interaction between movable objects', () => {
+            test('player interacts with wolf (simple damage)', () => {
+                player.interact = jest.fn();
+                wolf.interact = jest.fn();
+
+                map.interact(player, wolf);
+
+                expect(player.interact).toHaveBeenCalledTimes(1);
+                expect(wolf.interact).toHaveBeenCalledTimes(1);
+            });
+
+            test('player interacts with bear (simple damage)', () => {
+                player.interact = jest.fn();
+                bear.interact = jest.fn();
+
+                map.interact(player, bear);
+
+                expect(player.interact).toHaveBeenCalledTimes(1);
+                expect(bear.interact).toHaveBeenCalledTimes(1);
+            });
+
+            test('monster interacts with monster', () => {
+                wolf.interact = jest.fn();
+                bear.interact = jest.fn();
+
+                map.interact(wolf, bear);
+
+                expect(wolf.interact).toHaveBeenCalledTimes(1);
+                expect(bear.interact).toHaveBeenCalledTimes(1);
             });
         });
     });

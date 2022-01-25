@@ -5,7 +5,7 @@ import { Game } from './models/game';
 const game = new Game();
 const map = game.generateMap();
 
-const mapListener = new MapListener(map);
+const mapListener = new MapListener(map, game.settings.monsterSpeed);
 const playerListener = new PlayerListener(map);
 
 mapListener.runGame();

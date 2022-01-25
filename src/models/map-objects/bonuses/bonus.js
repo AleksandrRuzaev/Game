@@ -11,7 +11,7 @@ Proto.prototype = MapObject.prototype;
 Bonus.prototype = new Proto();
 Bonus.prototype.constructor = Bonus;
 
-Bonus.prototype.apply = function () {
+Bonus.prototype.interact = function () {
     throw Error('Bonus not implemented');
 };
 

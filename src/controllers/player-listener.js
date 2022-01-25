@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 function PlayerListener(map) {
     if (!new.target) {
         return new PlayerListener(map);
