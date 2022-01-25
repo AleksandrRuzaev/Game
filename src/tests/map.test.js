@@ -94,7 +94,7 @@ describe('Map functionality', () => {
 
     describe('Objects interaction', () => {
         describe('Interact with bonus', () => {
-            test('player interacts with apple', () => {
+            test('Interaction between player and apple', () => {
                 player.interact = jest.fn();
                 apple.interact = jest.fn();
 
@@ -104,7 +104,7 @@ describe('Map functionality', () => {
                 expect(apple.interact).toHaveBeenCalledTimes(1);
             });
 
-            test('player interacts with cherry', () => {
+            test('Interaction between player and cherry', () => {
                 player.interact = jest.fn();
                 cherry.interact = jest.fn();
 
@@ -117,7 +117,7 @@ describe('Map functionality', () => {
                 // expect(map.getBonuses().length).toEqual(1);
             });
 
-            test('monster interacts with apple', () => {
+            test('Interaction between monster and apple', () => {
                 wolf.interact = jest.fn();
                 apple.interact = jest.fn();
 
@@ -125,11 +125,9 @@ describe('Map functionality', () => {
 
                 expect(wolf.interact).toHaveBeenCalledTimes(1);
                 expect(apple.interact).toHaveBeenCalledTimes(1);
-
-                // expect(map.getBonuses().length).toEqual(1);
             });
 
-            test('monster interacts with cherry', () => {
+            test('Interaction between monster and cherry', () => {
                 wolf.interact = jest.fn();
                 cherry.interact = jest.fn();
 
@@ -137,13 +135,53 @@ describe('Map functionality', () => {
 
                 expect(wolf.interact).toHaveBeenCalledTimes(1);
                 expect(cherry.interact).toHaveBeenCalledTimes(1);
+            });
+        });
 
-                // expect(map.getBonuses().length).toEqual(1);
+        describe('Interact with obstacle', () => {
+            test('Interaction between player and stone', () => {
+                player.interact = jest.fn();
+                stone.interact = jest.fn();
+
+                map.interact(player, stone);
+
+                expect(player.interact).toHaveBeenCalledTimes(0);
+                expect(stone.interact).toHaveBeenCalledTimes(0);
+            });
+
+            test('Interaction between player and tree', () => {
+                player.interact = jest.fn();
+                tree.interact = jest.fn();
+
+                map.interact(player, tree);
+
+                expect(player.interact).toHaveBeenCalledTimes(0);
+                expect(tree.interact).toHaveBeenCalledTimes(0);
+            });
+
+            test('Interaction between monster and stone', () => {
+                wolf.interact = jest.fn();
+                stone.interact = jest.fn();
+
+                map.interact(wolf, stone);
+
+                expect(wolf.interact).toHaveBeenCalledTimes(0);
+                expect(stone.interact).toHaveBeenCalledTimes(0);
+            });
+
+            test('Interaction between monster and tree', () => {
+                wolf.interact = jest.fn();
+                tree.interact = jest.fn();
+
+                map.interact(wolf, tree);
+
+                expect(wolf.interact).toHaveBeenCalledTimes(0);
+                expect(tree.interact).toHaveBeenCalledTimes(0);
             });
         });
 
         describe('Interaction between movable objects', () => {
-            test('player interacts with wolf (simple damage)', () => {
+            test('Interaction between player and wolf', () => {
                 player.interact = jest.fn();
                 wolf.interact = jest.fn();
 
@@ -153,7 +191,7 @@ describe('Map functionality', () => {
                 expect(wolf.interact).toHaveBeenCalledTimes(1);
             });
 
-            test('player interacts with bear (simple damage)', () => {
+            test('Interaction between player and bear', () => {
                 player.interact = jest.fn();
                 bear.interact = jest.fn();
 
@@ -163,14 +201,14 @@ describe('Map functionality', () => {
                 expect(bear.interact).toHaveBeenCalledTimes(1);
             });
 
-            test('monster interacts with monster', () => {
+            test('Interaction between bear and wolf', () => {
                 wolf.interact = jest.fn();
                 bear.interact = jest.fn();
 
                 map.interact(wolf, bear);
 
-                expect(wolf.interact).toHaveBeenCalledTimes(1);
-                expect(bear.interact).toHaveBeenCalledTimes(1);
+                expect(wolf.interact).toHaveBeenCalledTimes(0);
+                expect(bear.interact).toHaveBeenCalledTimes(0);
             });
         });
     });
