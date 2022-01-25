@@ -103,9 +103,6 @@ describe('move objects', () => {
             wolf.move(direction);
             expect(y).toBe(wolf.position.y);
             expect(x).toBe(x + wolf.speed);
-
-            // expect(player._points).toEqual(apple._pointsValue);
-            // expect(map.getBonuses().length).toEqual(1);
         });
     });
 });

@@ -1,10 +1,12 @@
-function Map(player, monsters, bonuses, obstacles) {
+/**dimensions */
+function Map(player, monsters, bonuses, obstacles, dimensions) {
     if (!new.target) {
         return new Map(player, monsters, bonuses, obstacles);
     }
 
     this._player = player;
     this._mapObjects = [].push(player, monsters, bonuses, obstacles);
+    this._dimensions = dimensions;
 }
 
 Map.prototype.getMonsters = function () {
