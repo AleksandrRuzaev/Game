@@ -5,10 +5,7 @@ import { Apple } from '../models/map-objects/bonuses/apple';
 import { Cherry } from '../models/map-objects/bonuses/cherry';
 import { Wolf } from '../models/map-objects/movable-objects/monsters/wolf';
 import { Bear } from '../models/map-objects/movable-objects/monsters/bear';
-import { Player } from '../models/map-objects/movable-objects/player';
-import { Tree } from '../models/map-objects/obstacles/tree';
 import { Stone } from '../models/map-objects/obstacles/stone';
-import { Map } from '../models/map';
 
 const player = new Player(0, 0, 20, 5, 1);
 const wolf = new Wolf(2, 0, 10, 2, 2);

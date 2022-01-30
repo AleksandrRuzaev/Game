@@ -55,11 +55,6 @@ describe('Map functionality', () => {
         Player.mockClear();
     });
 
-    wolf.interact = jest.fn();
-    bear.interact = jest.fn();
-
-    cherry.interact = jest.fn();
-
     const map = new Map(player, [wolf, bear], [apple, cherry], [tree, stone]);
 
     test('get monsters', () => {
