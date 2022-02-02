@@ -22,7 +22,7 @@ describe('Player', () => {
         wolf.health = 5;
     });
 
-    const map = new Map(player, [wolf, bear], [apple, cherry], [tree, stone], { width: 10, health: 10 });
+    const map = new Map(player, [wolf, bear], [apple, cherry], [tree, stone], { width: 10, height: 10 });
 
     describe('result with interactions', () => {
         beforeEach(() => {
