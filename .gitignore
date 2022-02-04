@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 node_modules/
+coverage/
 build
 template/src/__tests__/__snapshots__/
 npm-debug.log*
