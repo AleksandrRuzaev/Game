@@ -58,7 +58,7 @@ export function generateNodes(map) {
     return nodes;
 }
 
-function getAdjacentNodes(node, nodes, explored) {
+export function getAdjacentNodes(node, nodes, explored) {
     const withoutExplored = nodes.filter((n) => !explored.find((e) => e.x === n.x && e.y === n.y));
     const withoutObstacles = withoutExplored.filter((we) => we.isEmpty);
 
@@ -70,7 +70,7 @@ function getAdjacentNodes(node, nodes, explored) {
     return [top, right, bottom, left].filter(Boolean);
 }
 
-function getAdjacentNodeByDirection(direction, nodes, node) {
+export function getAdjacentNodeByDirection(direction, nodes, node) {
     switch (direction) {
         case 'top':
             return nodes.find((n) => n.x === node.x && n.y === node.y + 1);
