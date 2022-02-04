@@ -1,11 +1,13 @@
-/**dimensions */
+import { Obstacle } from './map-objects/obstacles/obstacle';
+import { instanceOf } from '../helpers/helpers';
+
 function Map(player, monsters, bonuses, obstacles, dimensions) {
     if (!new.target) {
         return new Map(player, monsters, bonuses, obstacles);
     }
 
     this._player = player;
-    this._mapObjects = [].push(player, monsters, bonuses, obstacles);
+    this._mapObjects = [player].concat(monsters).concat(bonuses).concat(obstacles);
     this._dimensions = dimensions;
 }
 
@@ -13,7 +15,7 @@ Map.prototype.getMonsters = function () {
     throw Error('getMonsters not implemented');
 };
 Map.prototype.getObstacles = function () {
-    throw Error('getObstacles not implemented');
+    return this._mapObjects.filter((obj) => instanceOf(obj, Obstacle));
 };
 Map.prototype.getBonuses = function () {
     throw Error('getBonuses not implemented');
