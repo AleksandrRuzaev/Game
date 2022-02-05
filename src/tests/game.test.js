@@ -1,5 +1,5 @@
 import { Game } from '../models/game';
-import { areAllObjectOnTheirOwnCells } from './utils/helpers';
+import { areAllObjectOnTheirOwnCells, findPath, generateNodes } from './utils/helpers';
 
 describe('Game', () => {
     test('generate map (easy)', () => {
@@ -39,5 +39,66 @@ describe('Game', () => {
         expect(map.getObstacles().length).toEqual(game.settings.obstacleCount);
         expect(game.settings.monsterSpeed).toEqual(800);
         expect(areAllObjectOnTheirOwnCells(map)).toBeTrue();
+    });
+
+    describe('map can be finished', () => {
+        const game = new Game('test');
+
+        test('first case', () => {
+            const map = game.generateMap();
+            const nodes = generateNodes(map);
+
+            const anyEmptyEndNode = nodes.find((n) => n.isEmpty && n.x !== 0 && n.y !== 0);
+            let result = findPath({ x: 0, y: 0 }, anyEmptyEndNode, nodes);
+
+            for (const node of nodes) {
+                const isNotStartOrEndNode = node.x !== 0 && node.y !== 0 && node.x !== anyEmptyEndNode.x && node.y !== anyEmptyEndNode.y;
+                const isFreeNode = isNotStartOrEndNode && node.isEmpty;
+
+                if (isFreeNode) {
+                    result = findPath(node, anyEmptyEndNode, nodes);
+                }
+            }
+
+            expect(result).toBeTruthy();
+        });
+
+        test('second case', () => {
+            const map = game.generateMap();
+            const nodes = generateNodes(map);
+
+            const anyEmptyEndNode = nodes.find((n) => n.isEmpty && n.x !== 0 && n.y !== 0);
+            let result = findPath({ x: 0, y: 0 }, anyEmptyEndNode, nodes);
+
+            for (const node of nodes) {
+                const isNotStartOrEndNode = node.x !== 0 && node.y !== 0 && node.x !== anyEmptyEndNode.x && node.y !== anyEmptyEndNode.y;
+                const isFreeNode = isNotStartOrEndNode && node.isEmpty;
+
+                if (isFreeNode) {
+                    result = findPath(node, anyEmptyEndNode, nodes);
+                }
+            }
+
+            expect(result).toBeTruthy();
+        });
+
+        test('third case', () => {
+            const map = game.generateMap();
+            const nodes = generateNodes(map);
+
+            const anyEmptyEndNode = nodes.find((n) => n.isEmpty && n.x !== 0 && n.y !== 0);
+            let result = findPath({ x: 0, y: 0 }, anyEmptyEndNode, nodes);
+
+            for (const node of nodes) {
+                const isNotStartOrEndNode = node.x !== 0 && node.y !== 0 && node.x !== anyEmptyEndNode.x && node.y !== anyEmptyEndNode.y;
+                const isFreeNode = isNotStartOrEndNode && node.isEmpty;
+
+                if (isFreeNode) {
+                    result = findPath(node, anyEmptyEndNode, nodes);
+                }
+            }
+
+            expect(result).toBeTruthy();
+        });
     });
 });

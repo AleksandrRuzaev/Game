@@ -30,5 +30,15 @@ export const config = {
             obstacleCount: 300,
             monsterSpeed: 800,
         },
+        test: {
+            dimensions: {
+                width: 6,
+                height: 6,
+            },
+            monsterCount: 5,
+            bonusCount: 5,
+            obstacleCount: 10,
+            monsterSpeed: 1500,
+        },
     },
 };
