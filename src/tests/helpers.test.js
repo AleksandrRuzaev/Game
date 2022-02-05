@@ -1,8 +1,5 @@
 import { getAdjacentNodes, getAdjacentNodeByDirection, generateNodes, findPath } from './utils/helpers';
 import { Map } from '../models/map';
-import { Tree } from '../models/map-objects/obstacles/tree';
-import { Stone } from '../models/map-objects/obstacles/stone';
-import { Player } from '../models/map-objects/movable-objects/player';
 
 const nodes = [
     { x: 0, y: 0, isEmpty: true },
@@ -16,9 +13,27 @@ const nodes = [
     { x: 2, y: 2, isEmpty: true },
 ];
 
-const tree = new Tree(0, 1);
-const stone = new Stone(2, 0);
-const map = new Map(new Player(), [], [], [tree, stone], { width: 3, height: 3 });
+jest.mock('../models/map');
+Map.mockImplementation(() => {
+    const obstacles = [
+        {
+            position: { x: 0, y: 1 },
+        },
+        {
+            position: { x: 2, y: 0 },
+        },
+    ];
+
+    return {
+        _dimensions: {
+            width: 3,
+            height: 3,
+        },
+        getObstacles: jest.fn().mockImplementation(() => obstacles),
+    };
+});
+
+const map = new Map();
 
 describe('helpers', () => {
     describe('getAdjacentNodeByDirection', () => {
