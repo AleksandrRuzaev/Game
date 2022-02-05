@@ -55,7 +55,9 @@ describe('Map functionality', () => {
         Player.mockClear();
     });
 
-    const map = new Map(player, [wolf, bear], [apple, cherry], [tree, stone]);
+    const map = new Map(player, [wolf, bear], [apple, cherry], [tree, stone], { width: 9, height: 9 });
+
+    console.log(createMockImportData());
 
     test('get monsters', () => {
         expect(map.getMonsters().length).toEqual(2);
@@ -208,6 +210,85 @@ describe('Map functionality', () => {
         });
     });
 
-    test('export data', () => {});
-    test('import data', () => {});
+    describe('Data manipulations', () => {
+        test('export data', () => {
+            expect(map.exportData()).toEqual(createMockImportData(map));
+        });
+
+        test('import data', () => {
+            expect(map.importData()).toEqual(map);
+        });
+    });
 });
+
+function createMockImportData(map) {
+    return JSON.stringify({
+        dimensions: {
+            width: map.dimensions.width,
+            height: map.dimensions.height,
+        },
+        player: {
+            position: {
+                x: player.position.x,
+                y: player.position.y,
+            },
+            health: player.health,
+            speed: player.speed,
+            points: player._points,
+            wasRemoved: player.wasRemoved,
+            type: Player.name,
+        },
+        monsters: [
+            {
+                position: { x: wolf.position.x, y: wolf.position.y },
+                health: wolf.health,
+                damage: wolf.damage,
+                speed: wolf.speed,
+                wasRemoved: wolf.wasRemoved,
+                type: Wolf.name,
+            },
+            {
+                position: { x: bear.position.x, y: bear.position.y },
+                health: bear.health,
+                damage: bear.damage,
+                speed: bear.speed,
+                wasRemoved: bear.wasRemoved,
+                type: Bear.name,
+            },
+        ],
+        obstacles: [
+            {
+                position: { x: tree.position.x, y: tree.position.y },
+                health: tree.health,
+                damage: tree.damage,
+                wasRemoved: tree.wasRemoved,
+                type: Tree.name,
+            },
+            {
+                position: { x: stone.position.x, y: stone.position.y },
+                health: stone.health,
+                damage: stone.damage,
+                wasRemoved: stone.wasRemoved,
+                type: Stone.name,
+            },
+        ],
+        bonuses: [
+            {
+                position: { x: apple.position.x, y: apple.position.y },
+                health: apple.health,
+                damage: apple.damage,
+                wasRemoved: apple.wasRemoved,
+                pointsValue: apple._pointsValue,
+                type: Apple.name,
+            },
+            {
+                position: { x: cherry.position.x, y: cherry.position.y },
+                health: cherry.health,
+                damage: cherry.damage,
+                wasRemoved: cherry.wasRemoved,
+                pointsValue: cherry._pointsValue,
+                type: Cherry.name,
+            },
+        ],
+    });
+}
