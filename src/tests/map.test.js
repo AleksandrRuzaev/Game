@@ -7,57 +7,16 @@ import { Tree } from '../models/map-objects/obstacles/tree';
 import { Stone } from '../models/map-objects/obstacles/stone';
 import { Map } from '../models/map';
 
-jest.mock('../models/map-objects/movable-objects/monsters/wolf.js');
-Wolf.mockImplementation(() => {
-    return {
-        position: { x: 0, y: 0 },
-        health: 10,
-        damage: 2,
-        speed: 2,
-        move: jest.fn(),
-    };
-});
-
-jest.mock('../models/map-objects/movable-objects/monsters/bear.js');
-Bear.mockImplementation(() => {
-    return {
-        position: { x: 2, y: 0 },
-        health: 10,
-        damage: 5,
-        speed: 1,
-        move: jest.fn(),
-    };
-});
-
-jest.mock('../models/map-objects/movable-objects/player.js');
-Player.mockImplementation(() => {
-    return {
-        position: { x: 3, y: 0 },
-        health: 20,
-        damage: 5,
-        speed: 1,
-        move: jest.fn(),
-    };
-});
-
-const player = new Player();
-const wolf = new Wolf();
-const bear = new Bear();
+const player = new Player(3, 0, 20, 5, 1);
+const wolf = new Wolf(0, 0, 10, 2, 2);
+const bear = new Bear(2, 0, 10, 5, 1);
 const tree = new Tree(1, 0);
 const stone = new Stone(2, 0);
 const apple = new Apple(2, 1, 2);
 const cherry = new Cherry(2, 2, 3);
 
 describe('Map functionality', () => {
-    beforeEach(() => {
-        Wolf.mockClear();
-        Bear.mockClear();
-        Player.mockClear();
-    });
-
     const map = new Map(player, [wolf, bear], [apple, cherry], [tree, stone], { width: 9, height: 9 });
-
-    console.log(createMockImportData());
 
     test('get monsters', () => {
         expect(map.getMonsters().length).toEqual(2);
@@ -73,20 +32,31 @@ describe('Map functionality', () => {
 
     test('get by position', () => {
         expect(map.getByPosition({ x: 1, y: 0 }).length).toEqual(1);
-        expect(map.getByPosition({ x: 0, y: 0 }).length).toEqual(0);
+        expect(map.getByPosition({ x: 0, y: 1 }).length).toEqual(0);
     });
 
     test('can move', () => {
-        expect(map.canMove({ x: 1, y: 0 })).toBeTruthy();
+        expect(map.canMove({ x: 1, y: 5 })).toBeTruthy();
         expect(map.canMove({ x: 3, y: 0 })).toBeFalsy();
     });
 
+    test.only('check inside the map', () => {
+        expect(map.checkInsideTheMap({ x: 1, y: 5 })).toBeTruthy();
+        expect(map.checkInsideTheMap({ x: 0, y: 0 })).toBeTruthy();
+        expect(map.checkInsideTheMap({ x: 9, y: 0 })).toBeFalsy();
+        expect(map.checkInsideTheMap({ x: 0, y: 9 })).toBeFalsy();
+        expect(map.checkInsideTheMap({ x: -1, y: 0 })).toBeFalsy();
+        expect(map.checkInsideTheMap({ x: 3, y: -1 })).toBeFalsy();
+    });
+
     test('move', () => {
+        wolf.move = jest.fn();
+        bear.move = jest.fn();
+
         map.doMove();
 
         expect(wolf.move).toHaveBeenCalledTimes(1);
         expect(bear.move).toHaveBeenCalledTimes(1);
-        expect(player.move).toHaveBeenCalledTimes(1);
     });
 
     describe('Objects interaction', () => {

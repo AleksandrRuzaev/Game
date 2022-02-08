@@ -12,8 +12,7 @@ MovableObject.prototype = new Proto();
 MovableObject.prototype.constructor = MovableObject;
 
 MovableObject.prototype.move = function (direction) {
-    // via switch
-    throw Error('MovableObject move not implemented');
+
 };
 
 export { MovableObject };
