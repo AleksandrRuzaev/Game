@@ -1,7 +1,7 @@
 import { Apple } from '../../models/map-objects/bonuses/apple';
 import { Cherry } from '../../models/map-objects/bonuses/cherry';
 
-export function monsterFactory(type, data) {
+export function bonusFactory(type, data) {
     const x = data?.position.x ?? 0;
     const y = data?.position.y ?? 0;
     const wasRemoved = data?.wasRemoved;

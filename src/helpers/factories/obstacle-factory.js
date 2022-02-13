@@ -1,7 +1,7 @@
 import { Tree } from '../../models/map-objects/obstacles/tree';
 import { Stone } from '../../models/map-objects/obstacles/stone';
 
-export function monsterFactory(type, data) {
+export function obstacleFactory(type, data) {
     const x = data?.position.x ?? 0;
     const y = data?.position.y ?? 0;
     const wasRemoved = data?.wasRemoved;
