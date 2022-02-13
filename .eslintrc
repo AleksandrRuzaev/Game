@@ -11,5 +11,13 @@
     "rules": {
         "semi": ["error", "always"],
         "quotes": ["error", "single"]
-    }
+    },
+    "overrides": [
+        {
+            "files": ["*.test.js"],
+            "rules": {
+                "no-unused-vars": "off"
+            }
+        }
+    ]
 }
