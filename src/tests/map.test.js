@@ -40,7 +40,7 @@ describe('Map functionality', () => {
         expect(map.canMove({ x: 3, y: 0 })).toBeFalsy();
     });
 
-    test.only('check inside the map', () => {
+    test('check inside the map', () => {
         expect(map.checkInsideTheMap({ x: 1, y: 5 })).toBeTruthy();
         expect(map.checkInsideTheMap({ x: 0, y: 0 })).toBeTruthy();
         expect(map.checkInsideTheMap({ x: 9, y: 0 })).toBeFalsy();
@@ -49,7 +49,7 @@ describe('Map functionality', () => {
         expect(map.checkInsideTheMap({ x: 3, y: -1 })).toBeFalsy();
     });
 
-    test('move', () => {
+    test.skip('move', () => {
         wolf.move = jest.fn();
         bear.move = jest.fn();
 

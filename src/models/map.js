@@ -36,23 +36,47 @@ Map.prototype.checkInsideTheMap = function (position) {
 
     return isTopCoordinateValid && isRightCoordinateValid && isBottomCoordinateValid && isLeftCoordinateValid;
 };
+Map.prototype.isInteractionAvailable = function (firstObject, secondObject) {
+    const isFirstMonster = instanceOf(firstObject, Monster);
+    const isSecondMonster = instanceOf(secondObject, Monster);
+    const isFirstObstacle = instanceOf(firstObject, Obstacle);
+    const isSecondObstacle = instanceOf(secondObject, Obstacle);
+
+    const areTheyNotTwoMonsters = !isFirstMonster || !isSecondMonster;
+    const isInteractionWithoutObstacle = !(isFirstObstacle || isSecondObstacle);
+
+    return areTheyNotTwoMonsters && isInteractionWithoutObstacle;
+};
 Map.prototype.doMove = function () {
     const monsters = this.getMonsters();
 
     for (const monster of monsters) {
         const direction = getRandomDirection();
         const position = getPositionByDirection(direction, monster.position, monster.spped);
-        const isMoveAvailable = !this.checkInsideTheMap(position) && this.canMove(position);
+        const isMoveAvailable = this.checkInsideTheMap(position) && this.canMove(position);
 
         if (isMoveAvailable) {
             monster.move(direction);
+        } else {
+            const target = this.getByPosition(position)[0];
+
+            if (target && this.isInteractionAvailable(monster, target)) {
+                this.interact(monster, target);
+
+                if (target.wasRemoved) {
+                    monster.move(direction);
+                }
+            }
         }
     }
 };
 Map.prototype.interact = function (firstObject, secondObject) {
-    // firstObject.interact
-    // secondObject.interact
-    throw Error('interact not implemented');
+    const willBeInteracted = firstObject && secondObject && this.isInteractionAvailable(firstObject, secondObject);
+
+    if (willBeInteracted) {
+        firstObject.interact(secondObject);
+        secondObject.interact(firstObject);
+    }
 };
 Map.prototype.exportData = function () {
     throw Error('exportData not implemented');
