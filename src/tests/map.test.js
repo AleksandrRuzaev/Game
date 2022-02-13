@@ -181,7 +181,7 @@ describe('Map functionality', () => {
     });
 
     describe('Data manipulations', () => {
-        test('export data', () => {
+        test.only('export data', () => {
             expect(map.exportData()).toEqual(createMockImportData(map));
         });
 
@@ -194,8 +194,8 @@ describe('Map functionality', () => {
 function createMockImportData(map) {
     return JSON.stringify({
         dimensions: {
-            width: map.dimensions.width,
-            height: map.dimensions.height,
+            width: map._dimensions.width,
+            height: map._dimensions.height,
         },
         player: {
             position: {

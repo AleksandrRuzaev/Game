@@ -38,3 +38,15 @@ export function getPositionByDirection(direction, position, speed) {
             break;
     }
 }
+
+export function mapObjectsToExportFormat(objects) {
+    return objects.map((object) => ({
+        position: { x: object.position.x, y: object.position.y },
+        health: object.health,
+        damage: object.damage,
+        speed: object.speed,
+        wasRemoved: object.wasRemoved,
+        pointsValue: object._pointsValue,
+        type: object.constructor.name,
+    }));
+}

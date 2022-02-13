@@ -1,7 +1,8 @@
 import { Obstacle } from './map-objects/obstacles/obstacle';
 import { Monster } from './map-objects/movable-objects/monsters/monster';
 import { Bonus } from './map-objects/bonuses/bonus';
-import { instanceOf, getRandomDirection, getPositionByDirection } from '../helpers/helpers';
+import { Player } from './map-objects/movable-objects/player';
+import { instanceOf, getRandomDirection, getPositionByDirection, mapObjectsToExportFormat } from '../helpers/helpers';
 
 function Map(player, monsters, bonuses, obstacles, dimensions) {
     if (!new.target) {
@@ -75,11 +76,35 @@ Map.prototype.interact = function (firstObject, secondObject) {
 
     if (willBeInteracted) {
         firstObject.interact(secondObject);
+        // what if check secondObject.wasRemoved before second interact
         secondObject.interact(firstObject);
     }
 };
 Map.prototype.exportData = function () {
-    throw Error('exportData not implemented');
+    const result = {};
+
+    result.dimensions = {
+        width: this._dimensions.width,
+        height: this._dimensions.height,
+    };
+
+    result.player = {
+        position: {
+            x: this._player.position.x,
+            y: this._player.position.y,
+        },
+        health: this._player.health,
+        speed: this._player.speed,
+        points: this._player._points,
+        wasRemoved: this._player.wasRemoved,
+        type: Player.name,
+    };
+
+    result.monsters = mapObjectsToExportFormat(this.getMonsters());
+    result.obstacles = mapObjectsToExportFormat(this.getObstacles());
+    result.bonuses = mapObjectsToExportFormat(this.getBonuses());
+
+    return JSON.stringify(result);
 };
 Map.prototype.importData = function () {
     throw Error('importData not implemented');
