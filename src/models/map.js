@@ -2,7 +2,7 @@ import { Obstacle } from './map-objects/obstacles/obstacle';
 import { Monster } from './map-objects/movable-objects/monsters/monster';
 import { Bonus } from './map-objects/bonuses/bonus';
 import { Player } from './map-objects/movable-objects/player';
-import { instanceOf, getRandomDirection, getPositionByDirection, mapObjectsToExportFormat } from '../helpers/helpers';
+import { instanceOf, getRandomDirection, getPositionByDirection, mapObjectsToExportFormat, mapImportFormatToObjects } from '../helpers/helpers';
 
 function Map(player, monsters, bonuses, obstacles, dimensions) {
     if (!new.target) {
@@ -10,8 +10,8 @@ function Map(player, monsters, bonuses, obstacles, dimensions) {
     }
 
     this._player = player;
-    this._mapObjects = [player].concat(monsters).concat(bonuses).concat(obstacles);
-    this._dimensions = dimensions;
+    this._mapObjects = [player].concat(monsters, bonuses, obstacles);
+    this._dimensions = dimensions ?? {};
 }
 
 Map.prototype.getMonsters = function () {
@@ -94,6 +94,7 @@ Map.prototype.exportData = function () {
             y: this._player.position.y,
         },
         health: this._player.health,
+        damage: this._player.damage,
         speed: this._player.speed,
         points: this._player._points,
         wasRemoved: this._player.wasRemoved,
@@ -106,8 +107,19 @@ Map.prototype.exportData = function () {
 
     return JSON.stringify(result);
 };
-Map.prototype.importData = function () {
-    throw Error('importData not implemented');
+Map.prototype.importData = function (data) {
+    const importedData = JSON.parse(data);
+    const player = importedData.player;
+    const mapObjects = mapImportFormatToObjects(importedData);
+
+    this._dimensions.width = importedData.dimensions.width;
+    this._dimensions.height = importedData.dimensions.height;
+
+    this._player = new Player(player.position.x, player.position.y, player.health, player.damage, player.speed);
+    this._player._points = importedData.player.points;
+    this._player.wasRemoved = importedData.player.wasRemoved;
+
+    this._mapObjects = [this._player].concat(mapObjects);
 };
 
 export { Map };

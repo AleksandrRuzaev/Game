@@ -18,6 +18,16 @@ const cherry = new Cherry(2, 2, 3);
 describe('Map functionality', () => {
     const map = new Map(player, [wolf, bear], [apple, cherry], [tree, stone], { width: 9, height: 9 });
 
+    afterEach(() => {
+        player.interact = undefined;
+        apple.interact = undefined;
+        cherry.interact = undefined;
+        wolf.interact = undefined;
+        stone.interact = undefined;
+        tree.interact = undefined;
+        bear.interact = undefined;
+    });
+
     test('get monsters', () => {
         expect(map.getMonsters().length).toEqual(2);
     });
@@ -181,12 +191,15 @@ describe('Map functionality', () => {
     });
 
     describe('Data manipulations', () => {
-        test.only('export data', () => {
-            expect(map.exportData()).toEqual(createMockImportData(map));
-        });
-
         test('import data', () => {
-            expect(map.importData()).toEqual(map);
+            const map2 = new Map();
+
+            map2.importData(createMockImportData(map));
+
+            expect(map2).toEqual(map);
+        });
+        test('export data', () => {
+            expect(map.exportData()).toEqual(createMockImportData(map));
         });
     });
 });
@@ -203,6 +216,7 @@ function createMockImportData(map) {
                 y: player.position.y,
             },
             health: player.health,
+            damage: player.damage,
             speed: player.speed,
             points: player._points,
             wasRemoved: player.wasRemoved,

@@ -1,3 +1,5 @@
+import { monsterFactory, obstacleFactory, bonusFactory } from './factories';
+
 export function instanceOf(instance, instanceConstructor) {
     const proto = instance.__proto__;
 
@@ -49,4 +51,12 @@ export function mapObjectsToExportFormat(objects) {
         pointsValue: object._pointsValue,
         type: object.constructor.name,
     }));
+}
+
+export function mapImportFormatToObjects(data) {
+    const monsters = data.monsters.map((monster) => monsterFactory(monster.type, monster));
+    const bonuses = data.bonuses.map((bonus) => bonusFactory(bonus.type, bonus));
+    const obstacles = data.obstacles.map((obstacle) => obstacleFactory(obstacle.type, obstacle));
+
+    return monsters.concat(bonuses, obstacles);
 }
