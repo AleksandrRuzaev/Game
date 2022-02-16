@@ -63,15 +63,15 @@ describe('Player', () => {
 
     describe('move', () => {
         describe('valid move', () => {
-            player.position = { x: 5, y: 5 };
-
             test('move top', () => {
+                player.position = { x: 5, y: 5 };
+
                 const { x, y } = player.position;
                 const direction = 'top';
 
                 player.move(direction);
 
-                expect(y).toEqual(y + player.speed);
+                expect(y + player.speed).toEqual(player.position.y);
                 expect(x).toEqual(player.position.x);
             });
 
@@ -81,7 +81,7 @@ describe('Player', () => {
 
                 player.move(direction);
 
-                expect(y).toEqual(y - player.speed);
+                expect(y - player.speed).toEqual(player.position.y);
                 expect(x).toEqual(player.position.x);
             });
 
@@ -92,7 +92,7 @@ describe('Player', () => {
                 player.move(direction);
 
                 expect(y).toEqual(player.position.y);
-                expect(x).toEqual(x + player.speed);
+                expect(x + player.speed).toEqual(player.position.x);
             });
 
             test('move left', () => {
@@ -102,7 +102,7 @@ describe('Player', () => {
                 player.move(direction);
 
                 expect(y).toEqual(player.position.y);
-                expect(x).toEqual(x - player.speed);
+                expect(x - player.speed).toEqual(player.position.x);
             });
         });
 
