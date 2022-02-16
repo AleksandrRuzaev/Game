@@ -11,8 +11,13 @@ Proto.prototype = MapObject.prototype;
 Bonus.prototype = new Proto();
 Bonus.prototype.constructor = Bonus;
 
-Bonus.prototype.interact = function () {
-    throw Error('Bonus not implemented');
+Bonus.prototype.getPoints = function () {
+    return this._pointsValue;
+};
+Bonus.prototype.interact = function (object) {
+    // use some skill if it has
+    console.log(object);
+    this.wasRemoved = true;
 };
 
 export { Bonus };
