@@ -190,6 +190,72 @@ describe('Map functionality', () => {
         });
     });
 
+    describe('Player invalid move', () => {
+        player.position = { x: 0, y: 0 };
+
+        test('invalid player move (collide with monster)', () => {
+            const { x, y } = player.position;
+            const direction = 'right';
+
+            player.move(direction);
+
+            expect(y).toEqual(player.position.y);
+            expect(x).toEqual(player.position.x);
+        });
+
+        test('invalid player move (collide with obstacle)', () => {
+            const { x, y } = player.position;
+            const direction = 'top';
+
+            player.move(direction);
+
+            expect(y).toEqual(player.position.y);
+            expect(x).toEqual(player.position.x);
+        });
+
+        test('invalid player move (bottom boundary)', () => {
+            const { x, y } = player.position;
+            const direction = 'bottom';
+
+            player.move(direction);
+
+            expect(y).toEqual(player.position.y);
+            expect(x).toEqual(player.position.x);
+        });
+
+        test('invalid player move (left boundary)', () => {
+            const { x, y } = player.position;
+            const direction = 'left';
+
+            player.move(direction);
+
+            expect(y).toEqual(player.position.y);
+            expect(x).toEqual(player.position.x);
+        });
+
+        test('invalid player move (right boundary)', () => {
+            player.position = { x: 9, y: 9 };
+
+            const { x, y } = player.position;
+            const direction = 'right';
+
+            player.move(direction);
+
+            expect(y).toEqual(player.position.y);
+            expect(x).toEqual(player.position.x);
+        });
+
+        test('invalid player move (top boundary)', () => {
+            const { x, y } = player.position;
+            const direction = 'top';
+
+            player.move(direction);
+
+            expect(y).toEqual(player.position.y);
+            expect(x).toEqual(player.position.x);
+        });
+    });
+
     describe('Data manipulations', () => {
         test('import data', () => {
             const map2 = new Map();
