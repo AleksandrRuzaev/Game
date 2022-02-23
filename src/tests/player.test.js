@@ -16,6 +16,14 @@ describe('Player', () => {
         wolf.health = 5;
     });
 
+    describe('creation', () => {
+        test('create player without new key', () => {
+            const player = Player(5, 5, 10, 2, 2);
+
+            expect(player).not.toBeNull();
+        });
+    });
+
     describe('result with interactions', () => {
         beforeEach(() => {
             player._points = 0;
