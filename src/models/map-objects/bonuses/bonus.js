@@ -16,7 +16,6 @@ Bonus.prototype.getPoints = function () {
 };
 Bonus.prototype.interact = function (object) {
     // use some skill if it has
-    console.log(object);
     this.wasRemoved = true;
 };
 

@@ -34,7 +34,6 @@ describe('Player', () => {
             player.interact(apple);
 
             expect(player._points).toEqual(apple._pointsValue);
-            // expect(apple.wasRemoved).toBeTruthy();
         });
 
         test('player interacts with cherry', () => {
@@ -43,18 +42,24 @@ describe('Player', () => {
             expect(player._points).toEqual(cherry._pointsValue);
         });
 
-        test('player kills wolf', () => {
+        test('player interacts with wolf', () => {
             wolf.health = 4;
+
+            const health = player.health;
+
             player.interact(wolf);
 
-            expect(player.health).toEqual(player.health - wolf.damage);
+            expect(health - wolf.damage).toEqual(player.health);
         });
 
-        test('player kills bear', () => {
+        test('player interacts with bear', () => {
             bear.health = 4;
+
+            const health = player.health;
+
             player.interact(bear);
 
-            expect(player.health).toEqual(player.health - bear.damage);
+            expect(health - bear.damage).toEqual(player.health);
         });
     });
 
