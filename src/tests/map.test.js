@@ -197,7 +197,7 @@ describe('Map functionality', () => {
             const { x, y } = player.position;
             const direction = 'right';
 
-            player.move(direction);
+            map.moveObject(player, direction);
 
             expect(y).toEqual(player.position.y);
             expect(x).toEqual(player.position.x);
@@ -207,7 +207,7 @@ describe('Map functionality', () => {
             const { x, y } = player.position;
             const direction = 'top';
 
-            player.move(direction);
+            map.moveObject(player, direction);
 
             expect(y).toEqual(player.position.y);
             expect(x).toEqual(player.position.x);
@@ -217,7 +217,7 @@ describe('Map functionality', () => {
             const { x, y } = player.position;
             const direction = 'bottom';
 
-            player.move(direction);
+            map.moveObject(player, direction);
 
             expect(y).toEqual(player.position.y);
             expect(x).toEqual(player.position.x);
@@ -227,7 +227,7 @@ describe('Map functionality', () => {
             const { x, y } = player.position;
             const direction = 'left';
 
-            player.move(direction);
+            map.moveObject(player, direction);
 
             expect(y).toEqual(player.position.y);
             expect(x).toEqual(player.position.x);
@@ -239,7 +239,7 @@ describe('Map functionality', () => {
             const { x, y } = player.position;
             const direction = 'right';
 
-            player.move(direction);
+            map.moveObject(player, direction);
 
             expect(y).toEqual(player.position.y);
             expect(x).toEqual(player.position.x);
@@ -249,7 +249,7 @@ describe('Map functionality', () => {
             const { x, y } = player.position;
             const direction = 'top';
 
-            player.move(direction);
+            map.moveObject(player, direction);
 
             expect(y).toEqual(player.position.y);
             expect(x).toEqual(player.position.x);
