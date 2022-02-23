@@ -14,6 +14,7 @@ MovableObject.prototype.constructor = MovableObject;
 
 MovableObject.prototype.move = function (direction) {
     const position = getPositionByDirection(direction, this.position, this.speed);
+
     this.position = position;
 };
 

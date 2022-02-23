@@ -13,7 +13,9 @@ function Map(player, monsters, bonuses, obstacles, dimensions) {
     this._mapObjects = [player].concat(monsters, bonuses, obstacles);
     this._dimensions = dimensions ?? {};
 }
-
+Map.prototype.getPlayer = function () {
+    return this._player;
+};
 Map.prototype.getMonsters = function () {
     return this._mapObjects.filter((obj) => instanceOf(obj, Monster));
 };
@@ -48,25 +50,29 @@ Map.prototype.isInteractionAvailable = function (firstObject, secondObject) {
 
     return areTheyNotTwoMonsters && isInteractionWithoutObstacle;
 };
-Map.prototype.doMove = function () {
+Map.prototype.moveObjects = function () {
     const monsters = this.getMonsters();
 
     for (const monster of monsters) {
         const direction = getRandomDirection();
-        const position = getPositionByDirection(direction, monster.position, monster.spped);
-        const isMoveAvailable = this.checkInsideTheMap(position) && this.canMove(position);
 
-        if (isMoveAvailable) {
-            monster.move(direction);
-        } else {
-            const target = this.getByPosition(position)[0];
+        this.moveObject(monster, direction);
+    }
+};
+Map.prototype.moveObject = function (movableObject, direction) {
+    const position = getPositionByDirection(direction, movableObject.position, movableObject.spped);
+    const isMoveAvailable = this.checkInsideTheMap(position) && this.canMove(position);
 
-            if (target && this.isInteractionAvailable(monster, target)) {
-                this.interact(monster, target);
+    if (isMoveAvailable) {
+        movableObject.move(direction);
+    } else {
+        const target = this.getByPosition(position)[0];
 
-                if (target.wasRemoved) {
-                    monster.move(direction);
-                }
+        if (target && this.isInteractionAvailable(movableObject, target)) {
+            this.interact(movableObject, target);
+
+            if (target.wasRemoved) {
+                movableObject.move(direction);
             }
         }
     }

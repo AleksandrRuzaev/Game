@@ -63,7 +63,7 @@ describe('Map functionality', () => {
         wolf.move = jest.fn();
         bear.move = jest.fn();
 
-        map.doMove();
+        map.moveObjects();
 
         expect(wolf.move).toHaveBeenCalledTimes(1);
         expect(bear.move).toHaveBeenCalledTimes(1);

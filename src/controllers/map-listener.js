@@ -10,7 +10,7 @@ function MapListener(map, speed = 1000) {
 
 MapListener.prototype.runGame = function () {
     this._intervalId = setInterval(() => {
-        this._map.doMove();
+        this._map.moveObjects();
     }, this._speed);
 };
 MapListener.prototype.endGame = function () {
