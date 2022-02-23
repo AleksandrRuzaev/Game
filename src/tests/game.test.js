@@ -2,6 +2,13 @@ import { Game } from '../models/game';
 import { areAllObjectOnTheirOwnCells, findPath, generateNodes } from './utils/helpers';
 
 describe('Game', () => {
+    test('generate map without new', () => {
+        const game = Game();
+
+        expect(game).not.toBeNull();
+        expect(game.settings.monsterSpeed).toEqual(1000);
+    });
+
     test('generate map (easy)', () => {
         const game = new Game('easy');
 
