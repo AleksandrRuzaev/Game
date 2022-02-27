@@ -26,9 +26,7 @@ Map.prototype.getBonuses = function () {
     return this._mapObjects.filter((obj) => instanceOf(obj, Bonus));
 };
 Map.prototype.getByPosition = function (position) {
-    // console.log(this._mapObjects);
-
-    return this._mapObjects.filter((obj) => obj.position.x === position.x && obj.position.y === position.y);
+    return this._mapObjects.filter((obj) => !obj.wasRemoved && obj.position.x === position.x && obj.position.y === position.y);
 };
 Map.prototype.canMove = function (position) {
     return this.getByPosition(position).length === 0;
@@ -84,7 +82,6 @@ Map.prototype.interact = function (firstObject, secondObject) {
 
     if (willBeInteracted) {
         firstObject.interact(secondObject);
-        // what if check secondObject.wasRemoved before second interact
         secondObject.interact(firstObject);
     }
 };

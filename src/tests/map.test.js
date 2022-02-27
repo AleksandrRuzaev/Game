@@ -269,6 +269,7 @@ describe('Map functionality', () => {
 
         test('invalid player move (top boundary)', () => {
             player.position = new Position(9, 9);
+
             const { x, y } = player.position;
             const direction = 'top';
 
