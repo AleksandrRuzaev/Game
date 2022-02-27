@@ -1,29 +1,18 @@
 import { Player } from '../models/map-objects/movable-objects/player';
 import { Tree } from '../models/map-objects/obstacles/tree';
 import { Map } from '../models/map';
-import { MovableObject } from '../models/map-objects/movable-objects/movable-object';
 import { Cherry } from '../models/map-objects/bonuses/cherry';
 import { Wolf } from '../models/map-objects/movable-objects/monsters/wolf';
 import { Bear } from '../models/map-objects/movable-objects/monsters/bear';
+import { Position } from '../models/common/position';
 
-const wolf = new MovableObject(0, 0, 10, 2, 2);
-const map = new Map();
-const bear = new MovableObject(2, 0, 10, 5, 1);
+const wolf = new Wolf(0, 0, 10, 2, 2);
+const bear = new Bear(2, 0, 10, 5, 1);
 const tree = new Tree(2, 0);
 const player = new Player(2, 0, 20, 5, 1);
 const cherry = new Cherry(5, 5, 3);
 
-jest.mock('../models/map');
-Map.mockImplementation(() => {
-    return {
-        _player: player,
-        _mapObjects: [player, bear, wolf, tree, cherry],
-    };
-});
-
-beforeEach(() => {
-    Map.mockClear();
-});
+const map = new Map(player, [wolf, bear], [cherry], [tree], { width: 9, height: 9 });
 
 describe('creation', () => {
     test('create wolf without new key', () => {
@@ -41,7 +30,7 @@ describe('creation', () => {
 
 describe('move objects', () => {
     beforeEach(() => {
-        wolf.position = { x: 0, y: 0 };
+        wolf.position = new Position(0, 0);
     });
 
     describe('valid move', () => {
@@ -51,8 +40,8 @@ describe('move objects', () => {
 
             wolf.move(direction);
 
-            expect(y).toEqual(y + wolf.speed);
-            expect(x).toEqual(wolf.position.x);
+            expect(wolf.position.y).toEqual(y + wolf.speed);
+            expect(wolf.position.x).toEqual(x);
         });
 
         test('move bottom', () => {
@@ -63,8 +52,8 @@ describe('move objects', () => {
 
             wolf.move(direction);
 
-            expect(y).toEqual(y - wolf.speed);
-            expect(x).toEqual(wolf.position.x);
+            expect(wolf.position.y).toEqual(y - wolf.speed);
+            expect(wolf.position.x).toEqual(x);
         });
 
         test('move right', () => {
@@ -73,8 +62,8 @@ describe('move objects', () => {
 
             wolf.move(direction);
 
-            expect(y).toEqual(wolf.position.y);
-            expect(x).toEqual(x + wolf.speed);
+            expect(wolf.position.y).toEqual(y);
+            expect(wolf.position.x).toEqual(x + wolf.speed);
         });
 
         test('move left', () => {
@@ -85,51 +74,31 @@ describe('move objects', () => {
 
             wolf.move(direction);
 
-            expect(y).toEqual(wolf.position.y);
-            expect(x).toEqual(x - wolf.speed);
-        });
-    });
-
-    describe.skip('invalid move', () => {
-        test('invalid monster move (collide with another monster)', () => {
-            const { x, y } = wolf.position;
-            const direction = 'right';
-
-            wolf.move(direction);
-
-            expect(y).toEqual(wolf.position.y);
-            expect(x).toEqual(wolf.position.x);
-        });
-
-        test('invalid monster move (collide with obstacle)', () => {
-            const { x, y } = wolf.position;
-            const direction = 'right';
-
-            wolf.move(direction);
-
-            expect(y).toEqual(wolf.position.y);
-            expect(x).toEqual(wolf.position.x);
+            expect(wolf.position.y).toEqual(y);
+            expect(wolf.position.x).toEqual(x - wolf.speed);
         });
     });
 
     describe('result with interactions', () => {
         test('monster interacts with bonus', () => {
-            wolf.position = { x: 3, y: 5 };
+            wolf.position = new Position(3, 5);
+
             const { x, y } = wolf.position;
-            const direction = 'top';
+            const direction = 'right';
 
-            wolf.move(direction);
+            map.moveObject(wolf, direction);
 
-            expect(x).toEqual(wolf.position.x);
-            expect(y).toEqual(y + wolf.speed);
-            expect(map.getByPosition(cherry.position).wasRemoved).toBeTruthy();
+            expect(wolf.position.x).toEqual(x + wolf.speed);
+            expect(wolf.position.y).toEqual(y);
+            expect(cherry.wasRemoved).toBeTruthy();
         });
 
         test('monster interacts with player', () => {
+            const wolfHealth = wolf.health;
+
             wolf.interact(player);
 
-            expect(player.health).toEqual(player.health - wolf.damage);
-            expect(wolf.health).toEqual(wolf.health - player.damage);
+            expect(wolf.health).toEqual(wolfHealth - player.damage);
         });
     });
 });
