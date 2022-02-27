@@ -6,6 +6,7 @@ import { Player } from '../models/map-objects/movable-objects/player';
 import { Tree } from '../models/map-objects/obstacles/tree';
 import { Stone } from '../models/map-objects/obstacles/stone';
 import { Map } from '../models/map';
+import { Position } from '../models/common/position';
 
 const player = new Player(3, 0, 20, 5, 1);
 const wolf = new Wolf(0, 0, 10, 2, 2);
@@ -26,6 +27,17 @@ describe('Map functionality', () => {
         stone.interact = undefined;
         tree.interact = undefined;
         bear.interact = undefined;
+
+        wolf.move = undefined;
+        bear.move = undefined;
+    });
+
+    test('create map without new keyword', () => {
+        expect(Map()).not.toBeNull();
+    });
+
+    test('get player', () => {
+        expect(map.getPlayer()).toEqual(player);
     });
 
     test('get monsters', () => {
@@ -47,7 +59,7 @@ describe('Map functionality', () => {
 
     test('can move', () => {
         expect(map.canMove({ x: 1, y: 5 })).toBeTruthy();
-        expect(map.canMove({ x: 3, y: 0 })).toBeFalsy();
+        expect(map.canMove({ x: 0, y: 0 })).toBeFalsy();
     });
 
     test('check inside the map', () => {
@@ -59,7 +71,13 @@ describe('Map functionality', () => {
         expect(map.checkInsideTheMap({ x: 3, y: -1 })).toBeFalsy();
     });
 
-    test.skip('move', () => {
+    test('move', () => {
+        wolf.position.x = 7;
+        wolf.position.y = 2;
+
+        bear.position.x = 7;
+        bear.position.y = 5;
+
         wolf.move = jest.fn();
         bear.move = jest.fn();
 
@@ -191,9 +209,12 @@ describe('Map functionality', () => {
     });
 
     describe('Player invalid move', () => {
-        player.position = { x: 0, y: 0 };
+        beforeEach(() => {
+            player.position = new Position(0, 0);
+            wolf.position = new Position(0, 1);
+        });
 
-        test('invalid player move (collide with monster)', () => {
+        test('invalid player move (collide with obstacle)', () => {
             const { x, y } = player.position;
             const direction = 'right';
 
@@ -203,7 +224,8 @@ describe('Map functionality', () => {
             expect(x).toEqual(player.position.x);
         });
 
-        test('invalid player move (collide with obstacle)', () => {
+        // implement mapObject interact with monster
+        test.skip('invalid player move (collide with monster)', () => {
             const { x, y } = player.position;
             const direction = 'top';
 
@@ -246,6 +268,7 @@ describe('Map functionality', () => {
         });
 
         test('invalid player move (top boundary)', () => {
+            player.position = new Position(9, 9);
             const { x, y } = player.position;
             const direction = 'top';
 

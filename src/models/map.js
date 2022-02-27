@@ -26,6 +26,8 @@ Map.prototype.getBonuses = function () {
     return this._mapObjects.filter((obj) => instanceOf(obj, Bonus));
 };
 Map.prototype.getByPosition = function (position) {
+    // console.log(this._mapObjects);
+
     return this._mapObjects.filter((obj) => obj.position.x === position.x && obj.position.y === position.y);
 };
 Map.prototype.canMove = function (position) {
@@ -60,7 +62,7 @@ Map.prototype.moveObjects = function () {
     }
 };
 Map.prototype.moveObject = function (movableObject, direction) {
-    const position = getPositionByDirection(direction, movableObject.position, movableObject.spped);
+    const position = getPositionByDirection(direction, movableObject.position, movableObject.speed);
     const isMoveAvailable = this.checkInsideTheMap(position) && this.canMove(position);
 
     if (isMoveAvailable) {
